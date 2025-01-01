@@ -175,7 +175,7 @@ def admin():
 from groq import Groq
 import os
 
-client = Groq(api_key="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")
+client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
 def get_event_suggestions(user_name, query):
     # Connect to the Cassandra database (ensure the connection is valid)
@@ -342,24 +342,18 @@ def tabs(username):
 
     with tab2:
         st.write("Chatbot for Event Suggestions")
-    
+
         # Get the user's name for personalized queries (can be added via a login system)
         user_name = st.text_input("Enter your username")
-        
-        # First button to show the query input
-        if st.button("yeah"):
+
+        if user_name:
             user_query = st.text_input("Ask something about events or general queries:")
-            
-            if user_query:  # Check if the user query is not empty
-                # Second button to submit the query
+            if user_query:
                 if st.button("SUBMIT"):
                     response = handle_user_query(user_query, user_name)
                     st.write(response)
             else:
                 st.warning("Please enter a query to get a response.")
-
-
-
 
 
 
