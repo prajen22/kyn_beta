@@ -340,24 +340,27 @@ def tabs(username):
 
 
 
+    
+
     with tab2:
         st.write("Chatbot for Event Suggestions")
     
-        # Get the user's name for personalized queries (can be added via a login system)
-        user_name = st.text_input("Enter your username")
+        # Check if the username is already stored in session state
+        if 'user_name' not in st.session_state:
+            # Ask for the username only once
+            st.session_state.user_name = st.text_input("Enter your username")
     
         # Get the user's query when the submit button is clicked
         user_query = st.text_input("Ask something about events or general queries:")
     
         # Check if the submit button is clicked and process the query
         if st.button("SUBMIT"):
-            if user_name and user_query:  # Ensure both username and query are entered
-                response = handle_user_query(user_query, user_name)
+            if st.session_state.user_name and user_query:  # Ensure both username and query are entered
+                response = handle_user_query(user_query, st.session_state.user_name)
                 st.write(response)
-            elif not user_name:
-                st.warning("Please enter your username.")
             elif not user_query:
                 st.warning("Please enter a query to get a response.")
+
 
 
 
