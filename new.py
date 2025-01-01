@@ -175,7 +175,7 @@ def admin():
 from groq import Groq
 import os
 
-client = Groq(api_key=st.secrets["groq_api_key"])
+client = Groq(api_key=st.secrets["GROQ_API_KEY"])
 
 def get_event_suggestions(user_name, query):
     # Connect to the Cassandra database (ensure the connection is valid)
